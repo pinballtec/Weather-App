@@ -5,13 +5,22 @@ from django.http import HttpResponse
 
 
 def main(request):
-    app_id = ''
+    app_id = 'cd36bd3fa9df49ec3afeca695c290496'
 
-    context = 'https://api.openweathermap.org/data/2.5/weather?q={}&appid=' + app_id
+    link = 'https://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid=' + app_id
 
     city = 'Warsaw'
 
-    resp = requests.get(context.format(city))
-    print(resp.text)
+    resp = requests.get(link.format(city)).json()
 
-    return render(request, 'weather_app/index.html')
+    city_info = {
+        'city': city,
+        'temp': resp["main"]["temp"],
+        'icon': resp["weather"][0]["icon"]
+    }
+
+    # print(resp.text)
+
+    context = {'info': city_info}
+
+    return render(request, 'weather_app/index.html', context)
