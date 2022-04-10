@@ -28,22 +28,27 @@
     <div class="container">
         <div class="row">
             <div class="col-4 offset-1">
-        <form>
+        <form method="post">
+            {% csrf_token %}
           <h5>Search your city</h5>
           <div class="d-flex w-100 gap-2">
             <label for="newsletter1" class="visually-hidden">Your city</label>
-            <input id="newsletter1" type="text" class="form-control" placeholder="City">
+<!--            <input id="newsletter1" type="text" class="form-control" placeholder="City">-->
+              {{form.name}}
             <button class="btn btn-primary" type="button">Search</button>
           </div>
         </form>
       </div>
             <div class="col-4 offset-1">
                 <h2>Weather in your city</h2>
+
+                {% for info in all_info %}
                 <div class="alert alert-info">
                     <b>City: </b>{{info.city}}<br>
                     <b>Temperature: </b>{{info.temp}}
                     <img src="https://openweathermap.org/img/w/{{info.icon}}.png" alt="Weather Photo" class="img-thumbnail">
                 </div>
+                {% endfor %}
             </div>
             </div>
         </div>
