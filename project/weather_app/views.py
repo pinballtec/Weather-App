@@ -35,3 +35,7 @@ def main(request):
     context = {'all_info': all_cities, 'form': form}
 
     return render(request, 'weather_app/index.html', context)
+
+
+def info(request):
+    return render(request, 'weather_app/info.html')
