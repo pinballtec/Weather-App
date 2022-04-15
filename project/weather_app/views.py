@@ -39,3 +39,13 @@ def main(request):
 
 def info(request):
     return render(request, 'weather_app/info.html')
+
+
+def faq(request):
+    return render(request, 'weather_app/faq.html')
+
+
+# def delete_item(request):
+#     record = City.objects.get(id=City.name)
+#     record.delete()
+#     print("Record doesn't exists")
