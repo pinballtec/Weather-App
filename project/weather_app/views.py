@@ -1,8 +1,19 @@
-from django.shortcuts import render
 import requests
 from .models import City
 from .forms import CityForm
 from django.http import HttpResponse
+from django.urls import reverse_lazy
+from django.views.generic import (
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView,
+)
+
+from django.shortcuts import (get_object_or_404,
+                              render,
+                              HttpResponseRedirect)
 # Create your views here.
 
 
@@ -45,7 +56,10 @@ def faq(request):
     return render(request, 'weather_app/faq.html')
 
 
-# def delete_item(request):
-#     record = City.objects.get(id=City.name)
-#     record.delete()
-#     print("Record doesn't exists")
+def delete_view(request, id):
+    context = {}
+    obj = get_object_or_404(City, id=id)
+    if request.method == 'POST':
+        obj.delete()
+        return HttpResponseRedirect('/')
+    return render(request, 'weather_app/delete.html', context)
